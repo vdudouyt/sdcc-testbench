@@ -1,0 +1,669 @@
+;--------------------------------------------------------
+; File Created by SDCC : free open source ANSI-C Compiler
+; Version 2.8.5 #5297 (Dec 25 2008) (UNIX)
+; This file was generated Thu Dec 25 16:59:43 2008
+;--------------------------------------------------------
+	.module sdcc_mullong
+	.optsdcc -mz80
+	
+;--------------------------------------------------------
+; Public variables in this module
+;--------------------------------------------------------
+	.globl __mullong
+;--------------------------------------------------------
+; special function registers
+;--------------------------------------------------------
+;--------------------------------------------------------
+;  ram data
+;--------------------------------------------------------
+	.area _DATA
+;--------------------------------------------------------
+; overlayable items in  ram 
+;--------------------------------------------------------
+	.area _OVERLAY
+;--------------------------------------------------------
+; external initialized ram data
+;--------------------------------------------------------
+;--------------------------------------------------------
+; global & static initialisations
+;--------------------------------------------------------
+	.area _HOME
+	.area _GSINIT
+	.area _GSFINAL
+	.area _GSINIT
+;--------------------------------------------------------
+; Home
+;--------------------------------------------------------
+	.area _HOME
+	.area _HOME
+;--------------------------------------------------------
+; code
+;--------------------------------------------------------
+	.area _CODE
+;sdcc-mullong.c:60: _mullong (long a, long b)
+;	genLabel
+;	genFunction
+;	---------------------------------
+; Function _mullong
+; ---------------------------------
+__mullong_start::
+__mullong:
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl,#-26
+	add	hl,sp
+	ld	sp,hl
+;sdcc-mullong.c:64: t.i.hi = bcast(a)->b.b0 * bcast(b)->b.b2;           // A
+;	genAddrOf
+;	AOP_STK for __mullong__1_0
+	ld	hl,#0x0016
+	add	hl,sp
+	ld	-8 (ix),l
+	ld	-7 (ix),h
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	a,-8 (ix)
+	add	a,#0x02
+	ld	-6 (ix),a
+	ld	a,-7 (ix)
+	adc	a,#0x00
+	ld	-5 (ix),a
+;	genAddrOf
+	ld	hl,#0x001E
+	add	hl,sp
+; peephole 81 used ex to load hl into de.
+	ex	de,hl
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	a,(de)
+	ld	-9 (ix),a
+;	genAddrOf
+;	AOP_STK for __mullong__1_0
+	ld	hl,#0x0022
+	add	hl,sp
+	ld	-11 (ix),l
+	ld	-10 (ix),h
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	a,-11 (ix)
+	add	a,#0x02
+	ld	-13 (ix),a
+	ld	a,-10 (ix)
+	adc	a,#0x00
+	ld	-12 (ix),a
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-13 (ix)
+	ld	h,-12 (ix)
+	ld	c,(hl)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+	push	de
+	ld	a,c
+	push	af
+	inc	sp
+;	genIpush
+;	AOP_STK for __mullong__1_0
+	ld	a,-9 (ix)
+	push	af
+	inc	sp
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	b,h
+	ld	c,l
+	pop	de
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
+	ld	(hl),c
+	inc	hl
+	ld	(hl),b
+;sdcc-mullong.c:65: t.i.lo = bcast(a)->b.b0 * bcast(b)->b.b0;           // A
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+	ld	l,-11 (ix)
+	ld	h,-10 (ix)
+	ld	a,(hl)
+	ld	-6 (ix),a
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+	push	de
+;	AOP_STK for __mullong__1_0
+;	genIpush
+;	AOP_STK for __mullong__1_0
+; peephole 0za pushed -6 (ix), -9(ix) through hl instead of af.
+	ld	h,-6 (ix)
+	ld	l,-9 (ix)
+	push	hl
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	b,h
+	ld	c,l
+	pop	de
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
+	ld	(hl),c
+	inc	hl
+	ld	(hl),b
+;sdcc-mullong.c:66: t.b.b3 += bcast(a)->b.b3 * bcast(b)->b.b0;          // G
+;	genAddrOf
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+; peephole 43a removed loads by exploiting commutativity of addition.
+; peephole 43b removed loads by exploiting commutativity of addition.
+	ld	hl,#0x0016 + 0x0003
+	add	hl,sp
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	-8 (ix),l
+	ld	-7 (ix),h
+; peephole 72 used hl instead of -7 (ix), -8 (ix) to load hl.
+; peephole -1 removed redundant load.
+; peephole -1 removed redundant load.
+	ld	b,(hl)
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	hl,#0x0003
+	add	hl,de
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	-15 (ix),l
+	ld	-14 (ix),h
+; peephole 72 used hl instead of -14 (ix), -15 (ix) to load hl.
+; peephole -1 removed redundant load.
+; peephole -1 removed redundant load.
+	ld	c,(hl)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 1 deSending: 0
+	push	bc
+	push	de
+;	AOP_STK for __mullong__1_0
+;	genIpush
+; peephole 0y pushed bc instead of pushing a twice.
+; peephole 0s loaded b from -6 (ix) instead of going through a.
+	ld	b, -6 (ix)
+	push	bc
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	c,l
+	pop	de
+	pop	af
+;	genPlus
+; peephole 0b loaded a into a directly instead of going through b.
+; peephole -1 removed redundant load.
+	add	a,c
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
+	ld	(hl),a
+;sdcc-mullong.c:67: t.b.b3 += bcast(a)->b.b2 * bcast(b)->b.b1;          // F
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
+	ld	b,(hl)
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	hl,#0x0002
+	add	hl,de
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+	ld	-17 (ix),l
+	ld	-16 (ix),h
+; peephole 72 used hl instead of -16 (ix), -17 (ix) to load hl.
+; peephole -1 removed redundant load.
+; peephole -1 removed redundant load.
+	ld	a,(hl)
+	ld	-18 (ix),a
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	a,-11 (ix)
+	add	a,#0x01
+	ld	-20 (ix),a
+	ld	a,-10 (ix)
+	adc	a,#0x00
+	ld	-19 (ix),a
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-20 (ix)
+	ld	h,-19 (ix)
+	ld	c,(hl)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 1 deSending: 0
+	push	bc
+	push	de
+	ld	a,c
+	push	af
+	inc	sp
+;	genIpush
+;	AOP_STK for __mullong__1_0
+	ld	a,-18 (ix)
+	push	af
+	inc	sp
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	c,l
+	pop	de
+	pop	af
+;	genPlus
+; peephole 0b loaded a into a directly instead of going through b.
+; peephole -1 removed redundant load.
+	add	a,c
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
+	ld	(hl),a
+;sdcc-mullong.c:68: t.i.hi += bcast(a)->b.b2 * bcast(b)->b.b0;          // E <- b lost in .lst
+;	genAddrOf
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+; peephole 43a removed loads by exploiting commutativity of addition.
+; peephole 43b removed loads by exploiting commutativity of addition.
+	ld	hl,#0x0016 + 0x0002
+	add	hl,sp
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+	ld	-8 (ix),l
+	ld	-7 (ix),h
+; peephole 72 used hl instead of -7 (ix), -8 (ix) to load hl.
+; peephole -1 removed redundant load.
+; peephole -1 removed redundant load.
+	ld	a,(hl)
+	ld	-22 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-21 (ix),a
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-17 (ix)
+	ld	h,-16 (ix)
+	ld	c,(hl)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+	push	de
+;	AOP_STK for __mullong__1_0
+;	genIpush
+; peephole 0y pushed bc instead of pushing a twice.
+; peephole 0s loaded b from -6 (ix) instead of going through a.
+	ld	b, -6 (ix)
+	push	bc
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	b,h
+	ld	c,l
+	pop	de
+;	genPlus
+;	AOP_STK for __mullong__1_0
+	ld	a,-22 (ix)
+	add	a,c
+	ld	c,a
+	ld	a,-21 (ix)
+	adc	a,b
+	ld	b,a
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
+	ld	(hl),c
+	inc	hl
+	ld	(hl),b
+;sdcc-mullong.c:70: t.i.hi += bcast(a)->b.b1 * bcast(b)->b.b1;          // D <- b lost in .lst
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
+	ld	a,(hl)
+	ld	-22 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-21 (ix),a
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	hl,#0x0001
+	add	hl,de
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	-17 (ix),l
+	ld	-16 (ix),h
+; peephole 72 used hl instead of -16 (ix), -17 (ix) to load hl.
+; peephole -1 removed redundant load.
+; peephole -1 removed redundant load.
+	ld	c,(hl)
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-20 (ix)
+	ld	h,-19 (ix)
+	ld	b,(hl)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+	push	de
+	push	bc
+	inc	sp
+;	genIpush
+	ld	a,c
+	push	af
+	inc	sp
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	b,h
+	ld	c,l
+	pop	de
+;	genPlus
+;	AOP_STK for __mullong__1_0
+	ld	a,-22 (ix)
+	add	a,c
+	ld	c,a
+	ld	a,-21 (ix)
+	adc	a,b
+	ld	b,a
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
+	ld	(hl),c
+	inc	hl
+	ld	(hl),b
+;sdcc-mullong.c:72: bcast(a)->bi.b3 = bcast(a)->b.b1 * bcast(b)->b.b2;  // C
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-17 (ix)
+	ld	h,-16 (ix)
+	ld	c,(hl)
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-13 (ix)
+	ld	h,-12 (ix)
+	ld	b,(hl)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+	push	de
+	push	bc
+	inc	sp
+;	genIpush
+	ld	a,c
+	push	af
+	inc	sp
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	c,l
+	pop	de
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-15 (ix)
+	ld	h,-14 (ix)
+	ld	(hl),c
+;sdcc-mullong.c:73: bcast(a)->bi.i12 = bcast(a)->b.b1 * bcast(b)->b.b0; // C
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	hl,#0x0001
+	add	hl,de
+	ld	-22 (ix),l
+	ld	-21 (ix),h
+;	genPlus
+;	genPlusIncr
+	ld	c,e
+	ld	b,d
+	inc	bc
+;	genPointerGet
+	ld	a,(bc)
+	ld	c,a
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+	push	de
+;	AOP_STK for __mullong__1_0
+;	genIpush
+; peephole 0y pushed bc instead of pushing a twice.
+; peephole 0s loaded b from -6 (ix) instead of going through a.
+	ld	b, -6 (ix)
+	push	bc
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	b,h
+	ld	c,l
+	pop	de
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-22 (ix)
+	ld	h,-21 (ix)
+	ld	(hl),c
+	inc	hl
+	ld	(hl),b
+;sdcc-mullong.c:75: bcast(b)->bi.b3 = bcast(a)->b.b0 * bcast(b)->b.b3;  // B
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	a,-11 (ix)
+	add	a,#0x03
+	ld	-22 (ix),a
+	ld	a,-10 (ix)
+	adc	a,#0x00
+	ld	-21 (ix),a
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+	ld	l,-22 (ix)
+	ld	h,-21 (ix)
+	ld	c,(hl)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+	push	de
+	ld	a,c
+	push	af
+	inc	sp
+;	genIpush
+;	AOP_STK for __mullong__1_0
+	ld	a,-9 (ix)
+	push	af
+	inc	sp
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	c,l
+	pop	de
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-22 (ix)
+	ld	h,-21 (ix)
+	ld	(hl),c
+;sdcc-mullong.c:76: bcast(b)->bi.i12 = bcast(a)->b.b0 * bcast(b)->b.b1; // B
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	a,-11 (ix)
+	add	a,#0x01
+	ld	-22 (ix),a
+	ld	a,-10 (ix)
+	adc	a,#0x00
+	ld	-21 (ix),a
+;	genPlus
+;	AOP_STK for __mullong__1_0
+;	genPlusIncr
+	ld	c,-11 (ix)
+	ld	b,-10 (ix)
+	inc	bc
+;	genPointerGet
+	ld	a,(bc)
+;	genIpush
+; _saveRegsForCall: sendSetSize: 0 deInUse: 1 bcInUse: 0 deSending: 0
+; peephole 0n removed redundant load of a through c.
+	push	de
+	push	af
+	inc	sp
+;	genIpush
+;	AOP_STK for __mullong__1_0
+	ld	a,-9 (ix)
+	push	af
+	inc	sp
+;	genCall
+	call	__muluchar_rrx_s
+	pop	af
+	ld	b,h
+	ld	c,l
+	pop	de
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-22 (ix)
+	ld	h,-21 (ix)
+	ld	(hl),c
+	inc	hl
+	ld	(hl),b
+;sdcc-mullong.c:78: bcast(b)->bi.b0 = 0;                                // B
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-11 (ix)
+	ld	h,-10 (ix)
+	ld	(hl),#0x00
+;sdcc-mullong.c:79: bcast(a)->bi.b0 = 0;                                // C
+;	genAssign (pointer)
+;	isBitvar = 0
+	ld	a,#0x00
+	ld	(de),a
+;sdcc-mullong.c:80: t.l += a;
+;	genAddrOf
+;	AOP_STK for __mullong__1_0
+	ld	hl,#0x0016
+	add	hl,sp
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+	ld	-22 (ix),l
+	ld	-21 (ix),h
+; peephole 72 used hl instead of -21 (ix), -22 (ix) to load hl.
+; peephole -1 removed redundant load.
+; peephole -1 removed redundant load.
+	ld	a,(hl)
+	ld	-26 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-25 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-24 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-23 (ix),a
+;	genAssign
+;	AOP_STK for 
+	ld	c,4 (ix)
+	ld	b,5 (ix)
+	ld	e,6 (ix)
+	ld	d,7 (ix)
+;	genPlus
+;	AOP_STK for __mullong__1_0
+	ld	a,-26 (ix)
+	add	a,c
+	ld	c,a
+	ld	a,-25 (ix)
+	adc	a,b
+	ld	b,a
+	ld	a,-24 (ix)
+	adc	a,e
+	ld	e,a
+	ld	a,-23 (ix)
+	adc	a,d
+	ld	d,a
+;	genAssign (pointer)
+;	AOP_STK for __mullong__1_0
+;	isBitvar = 0
+	ld	l,-22 (ix)
+	ld	h,-21 (ix)
+	ld	(hl),c
+	inc	hl
+	ld	(hl),b
+	inc	hl
+	ld	(hl),e
+	inc	hl
+	ld	(hl),d
+;sdcc-mullong.c:82: return t.l + b;
+;	genPointerGet
+;	AOP_STK for __mullong__1_0
+;	AOP_STK for __mullong__1_0
+	ld	l,-22 (ix)
+	ld	h,-21 (ix)
+	ld	a,(hl)
+	ld	-26 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-25 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-24 (ix),a
+	inc	hl
+	ld	a,(hl)
+	ld	-23 (ix),a
+;	genAssign
+;	AOP_STK for 
+	ld	c,8 (ix)
+	ld	b,9 (ix)
+	ld	e,10 (ix)
+	ld	d,11 (ix)
+;	genPlus
+;	AOP_STK for __mullong__1_0
+	ld	a,-26 (ix)
+	add	a,c
+	ld	c,a
+	ld	a,-25 (ix)
+	adc	a,b
+	ld	b,a
+	ld	a,-24 (ix)
+	adc	a,e
+	ld	e,a
+	ld	a,-23 (ix)
+	adc	a,d
+	ld	d,a
+;	genRet
+; Dump of IC_LEFT: type AOP_REG size 4
+;	 reg = debc
+	ld	l,c
+	ld	h,b
+;	genLabel
+; peephole z12 removed unused label 00101$.
+;	genEndFunction
+	ld	sp,ix
+	pop	ix
+	ret
+__mullong_end::
+	.area _CODE
+	.area _CABS
